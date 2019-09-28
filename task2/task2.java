@@ -5,7 +5,7 @@ import java.util.List;
 
 public class task2 {
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
 
         //==считывание координат вершин прямоугольника==
         float[] rectangleX = new float[4];
@@ -36,6 +36,7 @@ public class task2 {
         //перебор точек
         for (int ip = 0; ip < pointX.length; ip++) {
 
+            boolean result_final = false;
             float[] deviations = new float[4]; //массив "отклонений" от прямой стороны прямоугольника (косое умножение векторов)
 
             for (int ipr = 0; ipr < 4; ipr++) {
@@ -43,6 +44,7 @@ public class task2 {
                 //перебор вершин
                 if ((pointX[ip] == rectangleX[ipr]) && (pointY[ip] == rectangleY[ipr])) {
                     result[ip] = 0;
+                    result_final = true;
                     break;
                 }
 
@@ -69,8 +71,11 @@ public class task2 {
                         //точка вне прямоугольника
                         result[ip] = 3;
                     }
+                    result_final = true;
                 }
+            }
 
+            if (!result_final) {
                 //анализ "отклонений" (косого умножения векторов)
                 byte negatyve_deviations = 0;
                 for (float deviation : deviations)
